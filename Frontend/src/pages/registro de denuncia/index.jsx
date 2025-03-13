@@ -1,94 +1,130 @@
+import { useEffect, useState, useRef} from "react";
+
 import Cabecalho from "../../components/cabecalho"
+import api from "../../services/api";
 
 function RegistroDenuncia() {
+            const tipoRef = useRef();
+            const descricaoRef = useRef();
+            const bairroRef = useRef();
+            const dataRef = useRef();
+            const checkbox = document.querySelector('input[type="checkbox"]');
+
+            function handleClickButton() {
+                if (tipoRef.current.value && descricaoRef.current.value && bairroRef.current.value && dataRef.current.value) {
+                    if (checkbox.checked) {
+                        registrarDenuncia();
+                    } else {
+                        alert("Confirme a veracidade dos dados");
+                    }
+                } else {
+                    alert("Preencha todos os dados do formulário");
+                }
+            }
+
+            async function registrarDenuncia() {
+                const denuncia = {
+                    tipoDenuncia: tipoRef.current.value,
+                    descricao: descricaoRef.current.value,
+                    bairro: bairroRef.current.value,
+                    data: dataRef.current.value
+                }
+
+                try {
+                    const response = await api.post('/denuncia', denuncia)
+                    alert("denúncia registrada com sucesso! guarde o código para ter acesso ao status da denúncia: " + response.data)
+                } catch (error) {
+                    alert("Erro ao registrar denúncia!")
+                }
+
+                tipoRef.current.value = "";
+                descricaoRef.current.value = "";
+                bairroRef.current.value = "";
+                dataRef.current.value = "";
+            }
+
     return (
         <>
             <Cabecalho titulo={"Registro de Denúncia"} />
             <form className="w-md justify-self-center flex flex-col items-center gap-8 shadow-md p-8 rounded-lg mt-5">
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-xl font-semibold mb-4">Dados pessoais (opcional)</h1>
-                    <input placeholder="Nome" type="text" className="w-full h-6 p-4 border border-gray-300 rounded-md focus:outline-none"/>
-                    <input placeholder="Telefone" type="tel" className="w-full h-6 p-4 border border-gray-300 rounded-md focus:outline-none"/>
-                    <input placeholder="Email" type="email" className="w-full h-6 p-4 border border-gray-300 rounded-md focus:outline-none"/>
-                </div>
                 <div className="flex flex-col items-center">
                     <h1 className="text-xl font-semibold mb-6">Informações da denúncia</h1>
                     <div className="w-full mb-3">
                         <label className="font-semibold mr-3">Tipo de denúncia:</label>
-                        <select name="classificacao" id="classificacao" className="w-full border border-gray-300 rounded-md p-2 mt-1">
+                        <select ref={tipoRef} name="classificacao" id="classificacao" className="w-full border border-gray-300 rounded-md p-2 mt-1">
                             <option value="">Selecione...</option>
-                            <option value="Violência doméstica">Violência doméstica</option>
-                            <option value="Assédio">Assédio</option>
-                            <option value="Roubo ou furto">Roubo ou furto</option>
-                            <option value="Problemas de infraestrutura">Problemas de infraestrutura</option>
-                            <option value="Crimes ambientais">Crimes ambientais</option>
-                            <option value="Outros">Outros</option>
+                            <option value="VIOLENCIA_DOMESTICA">Violência doméstica</option>
+                            <option value="ASSEDIO">Assédio</option>
+                            <option value="ROUBO">Roubo ou furto</option>
+                            <option value="INFRAESTRUTURA">Problemas de infraestrutura</option>
+                            <option value="AMBIENTAL">Crimes ambientais</option>
+                            <option value="OUTROS">Outros</option>
                         </select>
                     </div>
                     <div className="w-full flex flex-col items-start mb-3">
                         <label className="font-semibold mb-1">Descreva o ocorrido:</label>
-                        <textarea placeholder="Digite aqui..." className="w-full min-h-20 p-1 border border-gray-300 rounded-md focus:outline-none "/>
+                        <textarea ref={descricaoRef} placeholder="Digite aqui..." className="w-full min-h-20 p-1 border border-gray-300 rounded-md focus:outline-none "/>
                     </div>
                     <div className="w-full mb-3">
                         <label className="font-semibold mr-3">Bairro do ocorrido:</label>
-                        <select name="bairro" id="bairro" className="border border-gray-300 rounded-md p-2 w-full mt-1">
+                        <select ref={bairroRef} name="bairro" id="bairro" className="border border-gray-300 rounded-md p-2 w-full mt-1">
                             <option value="">Selecione...</option>
-                            <option value="Alecrim">Alecrim</option>
-                            <option value="Areia Preta">Areia Preta</option>
-                            <option value="Barro Vermelho">Barro Vermelho</option>
-                            <option value="Bom Pastor">Bom Pastor</option>
-                            <option value="Candelária">Candelária</option>
-                            <option value="Capim Macio">Capim Macio</option>
-                            <option value="Cidade Alta">Cidade Alta</option>
-                            <option value="Cidade da Esperança">Cidade da Esperança</option>
-                            <option value="Cidade Nova">Cidade Nova</option>
-                            <option value="Dix-Sept Rosado">Dix-Sept Rosado</option>
-                            <option value="Extremoz">Extremoz</option>
-                            <option value="Felipe Camarão">Felipe Camarão</option>
-                            <option value="Guararapes">Guararapes</option>
-                            <option value="Igapó">Igapó</option>
-                            <option value="Lagoa Azul">Lagoa Azul</option>
-                            <option value="Lagoa Nova">Lagoa Nova</option>
-                            <option value="Lagoa Seca">Lagoa Seca</option>
-                            <option value="Macaíba">Macaíba</option>
-                            <option value="Mãe Luiza">Mãe Luiza</option>
-                            <option value="Neópolis">Neópolis</option>
-                            <option value="Nordeste">Nordeste</option>
-                            <option value="Nova Descoberta">Nova Descoberta</option>
-                            <option value="Nossa Senhora da Apresentação">Nossa Senhora da Apresentação</option>
-                            <option value="Nossa Senhora de Nazaré">Nossa Senhora de Nazaré</option>
-                            <option value="Pajuçara">Pajuçara</option>
-                            <option value="Parnamirim">Parnamirim</option>
-                            <option value="Petrópolis">Petrópolis</option>
-                            <option value="Pitimbu">Pitimbu</option>
-                            <option value="Planalto">Planalto</option>
-                            <option value="Ponta Negra">Ponta Negra</option>
-                            <option value="Potengi">Potengi</option>
-                            <option value="Praia do Meio">Praia do Meio</option>
-                            <option value="Quintas">Quintas</option>
-                            <option value="Redinha">Redinha</option>
-                            <option value="Ribeira">Ribeira</option>
-                            <option value="Rocas">Rocas</option>
-                            <option value="Salinas">Salinas</option>
-                            <option value="Santos Reis">Santos Reis</option>
-                            <option value="São Gonçalo do Amarante">São Gonçalo do Amarante</option>
-                            <option value="Tirol">Tirol</option>
+                            <option value="ALECRIM">Alecrim</option>
+                            <option value="AREIA_PRETA">Areia Preta</option>
+                            <option value="BARRO_VERMELHO">Barro Vermelho</option>
+                            <option value="BOM_PASTOR">Bom Pastor</option>
+                            <option value="CANDELARIA">Candelária</option>
+                            <option value="CAPIM_MACIO">Capim Macio</option>
+                            <option value="CIDADE_ALTA">Cidade Alta</option>
+                            <option value="CIDADE_DA_ESPERANCA">Cidade da Esperança</option>
+                            <option value="CIDADE_NOVA">Cidade Nova</option>
+                            <option value="DIX_SEPT_ROSADO">Dix-Sept Rosado</option>
+                            <option value="EXTREMOZ">Extremoz</option>
+                            <option value="FELIPE_CAMARAO">Felipe Camarão</option>
+                            <option value="GUARARAPES">Guararapes</option>
+                            <option value="IGAPO">Igapó</option>
+                            <option value="LAGOA_AZUL">Lagoa Azul</option>
+                            <option value="LAGOA_NOVA">Lagoa Nova</option>
+                            <option value="LAGOA_SECA">Lagoa Seca</option>
+                            <option value="MACAIBA">Macaíba</option>
+                            <option value="MAE_LUIZA">Mãe Luiza</option>
+                            <option value="NEOPOLIS">Neópolis</option>
+                            <option value="NORDESTE">Nordeste</option>
+                            <option value="NOVA_DESCOBERTA">Nova Descoberta</option>
+                            <option value="NOSSA_SENHORA_DA_APRESENTACAO">Nossa Senhora da Apresentação</option>
+                            <option value="NOSSA_SENHORA_DE_NAZARE">Nossa Senhora de Nazaré</option>
+                            <option value="PAJUCARA">Pajuçara</option>
+                            <option value="PARNAMIRIM">Parnamirim</option>
+                            <option value="PETROPOLIS">Petrópolis</option>
+                            <option value="PITIMBU">Pitimbu</option>
+                            <option value="PLANALTO">Planalto</option>
+                            <option value="PONTA_NEGRA">Ponta Negra</option>
+                            <option value="POTENGI">Potengi</option>
+                            <option value="PRAIA_DO_MEIO">Praia do Meio</option>
+                            <option value="QUINTAS">Quintas</option>
+                            <option value="REDINHA">Redinha</option>
+                            <option value="RIBEIRA">Ribeira</option>
+                            <option value="ROCAS">Rocas</option>
+                            <option value="SALINAS">Salinas</option>
+                            <option value="SANTOS_REIS">Santos Reis</option>
+                            <option value="SAO_GONCALO_DO_AMARANTE">São Gonçalo do Amarante</option>
+                            <option value="TIROL">Tirol</option>
                         </select>
                     </div>
 
                     <div className="w-full mb-5">
                         <label className="font-semibold mr-3">Dia do ocorrido:</label>
-                        <input type="date" className="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none"/>
+                        <input ref={dataRef} type="date" className="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none"/>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <input type="checkbox" />
+                        <input value={"aceito"} name="termos" type="checkbox" />
                         <p className="text-xs font-semibold w-full">
                             Ao clicar, você confirma que todas as informações fornecidas são verídicas.
                         </p>
                     </div>
                 </div>
-                <button className="w-1/2 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer rounded-4xl p-2">Registrar Denúncia</button>
+                <button onClick={(e) => {e.preventDefault(); handleClickButton()}} className="w-1/2 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer rounded-4xl p-2">Registrar Denúncia</button>
             </form>
         </>
     )

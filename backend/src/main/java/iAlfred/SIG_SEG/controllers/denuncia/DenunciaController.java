@@ -35,6 +35,6 @@ public class DenunciaController {
     public ResponseEntity registrarDenuncia(@RequestBody RequestDenuncia dados) {
         Denuncia novaDenuncia = new Denuncia(dados);
         repository.save(novaDenuncia);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(novaDenuncia.getId());
     }
 }
