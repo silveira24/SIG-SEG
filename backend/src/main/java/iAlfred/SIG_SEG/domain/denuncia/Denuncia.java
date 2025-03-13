@@ -1,6 +1,7 @@
 package iAlfred.SIG_SEG.domain.denuncia;
 
 import iAlfred.SIG_SEG.enums.Bairros;
+import iAlfred.SIG_SEG.enums.StatusDenuncia;
 import iAlfred.SIG_SEG.enums.TipoDenuncia;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,11 +25,14 @@ public class Denuncia {
     @Enumerated(EnumType.STRING)
     private Bairros bairro;
     private LocalDate data;
+    @Enumerated(EnumType.STRING)
+    private StatusDenuncia status;
 
     public Denuncia(RequestDenuncia denuncia) {
         this.tipoDenuncia = denuncia.tipoDenuncia();
         this.descricao = denuncia.descricao();
         this.bairro = denuncia.bairro();
         this.data = denuncia.data();
+        this.status = StatusDenuncia.RECEBIDA;
     }
 }

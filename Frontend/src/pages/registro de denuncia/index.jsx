@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react";
+import {useRef} from "react";
 
 import Cabecalho from "../../components/cabecalho"
 import api from "../../services/api";
