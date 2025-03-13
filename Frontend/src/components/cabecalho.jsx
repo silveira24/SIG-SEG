@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function Cabecalho({titulo}) {
     return (
-        <header className="w-screen bg-blue-400 text-3xl text-white h-20 flex justify-center items-center">
+        <header className="w-screen bg-blue-400 text-3xl text-white h-20 flex justify-center items-center fixed left-0 top-0">
             <div className="fixed start-10"> 
                 <Link to={"/"} className="text-3xl font-semibold">SIG-SEG</Link>
             </div>
