@@ -33,14 +33,27 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity Logar(@RequestBody RequestUsuario usuario) {
         try {
-            usuarioService.logarUsuario(usuario);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("login realizado");
+            String token = usuarioService.logarUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(token);
         } catch (SenhaInvalidaException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha inválida");
         } catch (UsuarioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("email não cadastrado");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Erro inesperado" + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{token}")
+    public ResponseEntity verificarToken(@PathVariable String token){
+        try {
+            if(usuarioService.validarToken(token)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("token válido");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("token inválido");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

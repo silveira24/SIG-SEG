@@ -19,10 +19,10 @@ function Login() {
             }
             try {
                 const response = await api.post("/usuario/login", dados)
-                login()
+                login(response.data)
                 navigate("/area-servidor")
             } catch (error) {
-                console.log("Erro ao fazer login: " + (error.response?.data || error.message));
+                alert("Erro ao fazer login: " + (error.response?.data || error.message));
             }
         } else {
             alert("preencha todos os campos")
