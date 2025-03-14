@@ -3,65 +3,9 @@ import { useRef, useState } from "react"
 import Cabecalho from "../../components/cabecalho"
 import api from "../../services/api"
 
-const TIPOS_DENUNCIA = {
-    VIOLENCIA_DOMESTICA: "Violência doméstica",
-    ASSEDIO: "Assédio",
-    ROUBO: "Roubo ou furto",
-    INFRAESTRUTURA: "Problemas de infraestrutura",
-    AMBIENTAL: "Crimes ambientais",
-    OUTROS: "Outros"
-}
-
-const BAIRROS = {
-    ALECRIM: "Alecrim",
-    AREIA_PRETA: "Areia Preta",
-    BARRO_VERMELHO: "Barro Vermelho",
-    BOM_PASTOR: "Bom Pastor",
-    CANDELARIA: "Candelária",
-    CAPIM_MACIO: "Capim Macio",
-    CIDADE_ALTA: "Cidade Alta",
-    CIDADE_DA_ESPERANCA: "Cidade da Esperança",
-    CIDADE_NOVA: "Cidade Nova",
-    DIX_SEPT_ROSADO: "Dix-Sept Rosado",
-    EXTREMOZ: "Extremoz",
-    FELIPE_CAMARAO: "Felipe Camarão",
-    GUARARAPES: "Guararapes",
-    IGAPO: "Igapó",
-    LAGOA_AZUL: "Lagoa Azul",
-    LAGOA_NOVA: "Lagoa Nova",
-    LAGOA_SECA: "Lagoa Seca",
-    MACAIBA: "Macaíba",
-    MAE_LUIZA: "Mãe Luiza",
-    NEOPOLIS: "Neópolis",
-    NORDESTE: "Nordeste",
-    NOVA_DESCOBERTA: "Nova Descoberta",
-    NOSSA_SENHORA_DA_APRESENTACAO: "Nossa Senhora da Apresentação",
-    NOSSA_SENHORA_DE_NAZARE: "Nossa Senhora de Nazaré",
-    PAJUCARA: "Pajuçara",
-    PARNAMIRIM: "Parnamirim",
-    PETROPOLIS: "Petrópolis",
-    PITIMBU: "Pitimbu",
-    PLANALTO: "Planalto",
-    PONTA_NEGRA: "Ponta Negra",
-    POTENGI: "Potengi",
-    PRAIA_DO_MEIO: "Praia do Meio",
-    QUINTAS: "Quintas",
-    REDINHA: "Redinha",
-    RIBEIRA: "Ribeira",
-    ROCAS: "Rocas",
-    SALINAS: "Salinas",
-    SANTOS_REIS: "Santos Reis",
-    SAO_GONCALO_DO_AMARANTE: "São Gonçalo do Amarante",
-    TIROL: "Tirol",
-}
-
-const STATUS = {
-    RECEBIDA: "Recebida",
-    ANALISE: "Análise",
-    ANDAMENTO: "Andamento",
-    CONCLUIDA: "Concluída",
-    ARQUIVADA: "Arquivada"
-}
+import {TIPOS_DENUNCIA} from "../../constantes/TIPOS_DENUNCIA"
+import {BAIRROS} from "../../constantes/BAIRROS"
+import {STATUS} from "../../constantes/STATUS"
 
 function BuscaDenuncia() {
     const localizadorRef = useRef()

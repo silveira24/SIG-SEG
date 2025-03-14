@@ -19,7 +19,7 @@ public class DenunciaController {
     @GetMapping
     public ResponseEntity getAllDenuncias() {
         var allDenuncias = repository.findAll();
-        return ResponseEntity.ok(allDenuncias);
+        return ResponseEntity.ok().body(allDenuncias);
     }
 
     @GetMapping("/{id}")

@@ -1,0 +1,7 @@
+export const STATUS = {
+    RECEBIDA: "Recebida",
+    ANALISE: "Análise",
+    ANDAMENTO: "Andamento",
+    CONCLUIDA: "Concluída",
+    ARQUIVADA: "Arquivada"
+}

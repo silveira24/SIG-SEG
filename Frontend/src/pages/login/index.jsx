@@ -1,12 +1,15 @@
 import { useRef } from "react"
 import Cabecalho from "../../components/cabecalho"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import api from "../../services/api"
+import { useAuth } from "../../contexts/AuthContext"
 
 function Login() {
 
     const emailRef = useRef()
     const senhaRef = useRef()
+    const {login} = useAuth()
+    const navigate = useNavigate()
 
     async function logar() {
         if(emailRef.current.value && senhaRef.current.value) {
@@ -16,9 +19,10 @@ function Login() {
             }
             try {
                 const response = await api.post("/usuario/login", dados)
-                alert("usuário logado")
+                login()
+                navigate("/area-servidor")
             } catch (error) {
-                alert("Erro ao fazer login: " + (error.response?.data || error.message))
+                console.log("Erro ao fazer login: " + (error.response?.data || error.message));
             }
         } else {
             alert("preencha todos os campos")

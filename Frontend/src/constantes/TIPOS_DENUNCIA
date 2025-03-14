@@ -1,0 +1,8 @@
+export const TIPOS_DENUNCIA = {
+    VIOLENCIA_DOMESTICA: "Violência doméstica",
+    ASSEDIO: "Assédio",
+    ROUBO: "Roubo ou furto",
+    INFRAESTRUTURA: "Problemas de infraestrutura",
+    AMBIENTAL: "Crimes ambientais",
+    OUTROS: "Outros"
+}
