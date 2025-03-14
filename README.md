@@ -2,7 +2,7 @@
 
 ## Descrição
 
-O SIG-SEG é uma aplicação web que visa gerenciar denúncias recebidas pela Secretaria de Segurança, com funcionalidades de cadastro de usuários, login de servidores e registro de denúncias. O sistema permite que os usuários registrem ocorrências de forma fácil, e que servidores da Secretaria de Segurança possam consultar essas denúncias.
+O SIG-SEG é uma aplicação web que visa gerenciar denúncias recebidas pela Secretaria de Segurança, com funcionalidades de cadastro e login de servidores, registro de denúncias e visualização de denúncias. O sistema permite que o público registre denúncias de forma fácil, e que servidores da Secretaria de Segurança possam consultar essas denúncias de maneira eficiente.
 
 ## Funcionalidades
 
@@ -12,13 +12,14 @@ O SIG-SEG é uma aplicação web que visa gerenciar denúncias recebidas pela Se
 - **Login**: Tela de login para servidores com autenticação via email e senha.
 - **Cadastro de Denúncias**: Permite o registro de denúncias com tipo, descrição, bairro e data (não requer login).
 - **Busca de Denúncia por Código**: Permite que qualquer usuário consulte uma denúncia pelo ID (não requer login).
+- **Área do Servidor: Tela exclusiva para servidores que exibe todas as denúncias cadastradas, com autenticação de login via token JWT.**
 
 ### Backend (Spring Boot)
 - **Cadastro de Usuário**: Permite o cadastro de novos usuários (nome, email e senha).
 - **Login**: Permite login de servidores com email e senha.
 - **Cadastro de Denúncia**: Permite o cadastro de denúncias com tipo, descrição, bairro e data (não requer login).
 - **Busca de Denúncia**: Permite que os servidores busquem uma denúncia pelo ID (não requer login).
-- **Segurança**: Implementação de Spring Security para garantir a autenticação e autorização, além de uso do Bcrypt para segurança das senhas.
+- **Segurança**: Implementação de Spring Security com tokens JWT para garantir a autenticação e autorização dos servidores, além de uso do Bcrypt para segurança das senhas.
 
 ## Tecnologias
 
@@ -30,6 +31,7 @@ O SIG-SEG é uma aplicação web que visa gerenciar denúncias recebidas pela Se
 - **Backend**:
   - Java Spring Boot
   - Spring Security (para autenticação e autorização)
+  - JWT (para autenticação de servidores)
   - BCrypt (para codificação das senhas armazenas no banco de dados)
   - JPA (para interação com o banco de dados)
   - Flyway (para gerenciamento de migrations do banco de dados)
