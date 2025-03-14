@@ -1,0 +1,6 @@
+CREATE TABLE usuario (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    nome TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    senha TEXT NOT NULL
+);

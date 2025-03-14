@@ -38,9 +38,10 @@ function RegistroDenuncia() {
                 }
 
                 tipoRef.current.value = "";
-                descricaoRef.current.value = "";
-                bairroRef.current.value = "";
-                dataRef.current.value = "";
+                descricaoRef.current.value = ""
+                bairroRef.current.value = ""
+                dataRef.current.value = ""
+                checkbox.checked = false
             }
 
     return (
