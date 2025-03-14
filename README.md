@@ -43,7 +43,7 @@ O SIG-SEG é uma aplicação web que visa gerenciar denúncias recebidas pela Se
 1. Clone o repositório do projeto.
 2. No diretório do backend, execute o seguinte comando para rodar a aplicação:
     ```bash
-    ./mvn spring-boot:run
+    ./mvnw spring-boot:run
     ```
    Isso irá iniciar o backend na porta `8080`.
 
