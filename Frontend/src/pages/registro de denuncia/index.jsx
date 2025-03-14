@@ -8,11 +8,11 @@ function RegistroDenuncia() {
             const descricaoRef = useRef();
             const bairroRef = useRef();
             const dataRef = useRef();
-            const checkbox = document.querySelector('input[type="checkbox"]');
+            const checkboxRef = useRef();
 
             function handleClickButton() {
                 if (tipoRef.current.value && descricaoRef.current.value && bairroRef.current.value && dataRef.current.value) {
-                    if (checkbox.checked) {
+                    if (checkboxRef.current.checked) {
                         registrarDenuncia();
                     } else {
                         alert("Confirme a veracidade dos dados");
@@ -119,7 +119,7 @@ function RegistroDenuncia() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <input value={"aceito"} name="termos" type="checkbox" />
+                        <input ref={checkboxRef} value={"aceito"} name="termos" type="checkbox" />
                         <p className="text-xs font-semibold w-full">
                             Ao clicar, você confirma que todas as informações fornecidas são verídicas.
                         </p>

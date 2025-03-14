@@ -3,10 +3,14 @@ package iAlfred.SIG_SEG.service.usuario;
 import iAlfred.SIG_SEG.domain.usuario.RequestUsuario;
 import iAlfred.SIG_SEG.domain.usuario.Usuario;
 import iAlfred.SIG_SEG.excecoes.EmailJaCadastradoException;
+import iAlfred.SIG_SEG.excecoes.SenhaInvalidaException;
+import iAlfred.SIG_SEG.excecoes.UsuarioNaoEncontradoException;
 import iAlfred.SIG_SEG.repositories.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -31,5 +35,14 @@ public class UsuarioService {
         novoUsuario.setEmail(usuario.email());
         novoUsuario.setSenha(senhaCodificada);
         repository.save(novoUsuario);
+    }
+
+    public void logarUsuario(RequestUsuario usuario) {
+        Usuario usuarioEncontrado = repository.findByEmail(usuario.email())
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Email não cadastrado!"));
+
+        if(!passwordEncoder.matches(usuario.senha(), usuarioEncontrado.getSenha())){
+            throw new SenhaInvalidaException("Email ou senha errados!");
+        }
     }
 }
